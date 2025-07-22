@@ -4,10 +4,8 @@ import { PaginatedDocs, Post, PopulatedPost, Category } from '@/interfaces';
 import { PostFilters } from '@/components/PostFilters';
 import { PostCard } from '@/components/PostCard';
 import { Pagination } from '@/components/Pagination';
-
-
 type CategoryPageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
   searchParams: {
     q?: string;
     page?: string;
@@ -23,9 +21,10 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }
 }
 
-// ✅ Sayfa bileşeni
+// Updated function to resolve the 'params' promise before using it.
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const { slug } = params;
+  const resolvedParams = await params; // Resolve the promised params
+  const { slug } = resolvedParams;
   const page = Number(searchParams.page) || 1;
   const searchQuery = searchParams.q || '';
 
