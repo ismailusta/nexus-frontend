@@ -4,8 +4,9 @@ import { PaginatedDocs, Post, PopulatedPost, Category } from '@/interfaces';
 import { PostFilters } from '@/components/PostFilters';
 import { PostCard } from '@/components/PostCard';
 import { Pagination } from '@/components/Pagination';
+
 type CategoryPageProps = {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
   searchParams: {
     q?: string;
     page?: string;
@@ -21,10 +22,8 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }
 }
 
-// Updated function to resolve the 'params' promise before using it.
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const resolvedParams = await params; // Resolve the promised params
-  const { slug } = resolvedParams;
+  const { slug } = params;
   const page = Number(searchParams.page) || 1;
   const searchQuery = searchParams.q || '';
 
@@ -60,7 +59,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
       <PostFilters categories={allCategories} />
 
-      {posts && posts.length > 0 ? (
+      {posts.length > 0 ? (
         <>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
