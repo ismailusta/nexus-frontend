@@ -1,16 +1,15 @@
-// src/components/WeatherWidget.tsx
+
 'use client'
 
 import { useEffect, useState } from 'react'
-// İkonları kütüphaneden import ediyoruz
+
 import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiThunderstorm, WiFog } from 'react-icons/wi';
 
 interface WeatherData {
   temperature_2m: number;
-  weather_code: number; // Hava durumu kodunu da alıyoruz
+  weather_code: number;
 }
 
-// Hava durumu kodunu ikona çeviren bir fonksiyon
 const getWeatherIcon = (code: number) => {
   switch (code) {
     case 0:
@@ -55,7 +54,6 @@ export const WeatherWidget = () => {
 
   useEffect(() => {
     const fetchWeatherForLocation = (latitude: number, longitude: number) => {
-      // API isteğine 'weather_code'u da ekliyoruz
       fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code`)
         .then(res => res.json())
         .then(data => {
@@ -108,7 +106,6 @@ export const WeatherWidget = () => {
   }
 
   return (
-    // İkon ve metni yan yana getirmek için flex kullanıyoruz
     <div className="flex items-center gap-2">
       {getWeatherIcon(weather.weather_code)}
       <div className="text-right">

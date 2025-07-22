@@ -5,9 +5,9 @@ import { FormattedDate } from '@/components/FormattedDate'
 import { CurrencyTicker } from '@/components/CurrencyTicker'
 import { QuoteOfTheDay } from '@/components/QuoteOfTheDay'
 
-// Tek bir öne çıkan yazıyı göstermek için küçük, yeniden kullanılabilir bir bileşen
+
 const PostHeroCard = ({ post }: { post: PopulatedPost }) => {
-  // Yazar avatarı veya varsayılan resim için URL'yi belirliyoruz
+
   const staticImages = ['/images/post1.jpg', '/images/post2.jpg', '/images/post3.jpg', '/images/post4.jpeg'];
 
   return (
@@ -40,7 +40,6 @@ const PostHeroCard = ({ post }: { post: PopulatedPost }) => {
 }
 
 export default async function HomePage() {
-  // API'den en son 2 yazıyı, ilişkili yazar ve resim bilgileriyle çekiyoruz
   const data = await fetchPayload<PaginatedDocs<Post>>(
     '/api/posts?sort=-createdAt&limit=2&depth=2',
   )
@@ -49,7 +48,6 @@ export default async function HomePage() {
 
   return (
     <div className="flex-grow">
-      {/* Header altı bileşenleri */}
       <CurrencyTicker />
       <QuoteOfTheDay />
 

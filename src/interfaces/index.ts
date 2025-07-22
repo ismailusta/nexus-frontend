@@ -1,3 +1,4 @@
+import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 
 export interface Media {
   id: string;
@@ -25,7 +26,7 @@ export interface Post {
   id: string;
   title: string;
   slug: string;
-  content: any;
+  content: DefaultTypedEditorState;
   author: Author;
   category: Category;
   createdAt: string;

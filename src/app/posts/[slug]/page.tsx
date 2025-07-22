@@ -1,4 +1,4 @@
-// src/app/posts/[slug]/page.tsx
+
 
 import { PaginatedDocs, Post, PopulatedPost } from '@/interfaces';
 import { fetchPayload } from '@/services/payload';
@@ -38,7 +38,6 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <article className="py-8">
-      {/* Yazı Başlığı ve Metadata */}
       <div className="mb-8 text-center">
         <p className="text-blue-500 font-semibold">{post.category.name}</p>
         <h1 className="text-4xl md:text-5xl font-extrabold mt-2">{post.title}</h1>
@@ -48,8 +47,6 @@ export default async function PostPage({ params }: Props) {
           <span><FormattedDate dateString={post.createdAt} /></span>
         </div>
       </div>
-      
-      {/* Öne Çıkan Görsel */}
       <div className="mb-8">
         <img 
           src={staticImages[Math.floor(Math.random() * staticImages.length)]} 
@@ -58,7 +55,6 @@ export default async function PostPage({ params }: Props) {
         />
       </div>
 
-      {/* Yazı İçeriği */}
       <div className="prose prose-lg dark:prose-invert max-w-4xl mx-auto">
         <RichText content={post.content} />
       </div>

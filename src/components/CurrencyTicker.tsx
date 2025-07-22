@@ -1,4 +1,3 @@
-// src/components/CurrencyTicker.tsx
 
 async function getRates() {
   const apiKey = process.env.NEXT_PUBLIC_COLLECTAPI_KEY;
@@ -8,7 +7,6 @@ async function getRates() {
   }
 
   try {
-    // Üç farklı API isteğini aynı anda başlatıyoruz
     const [frankfurterResDolar, frankfurterResEuro, goldRes, bistRes] = await Promise.all([
       fetch('https://api.frankfurter.app/latest?from=USD&to=TRY', { next: { revalidate: 3600 } }),
       fetch('https://api.frankfurter.app/latest?from=EUR&to=TRY', { next: { revalidate: 3600 } }),
@@ -19,7 +17,7 @@ async function getRates() {
       fetch('https://api.collectapi.com/economy/borsaIstanbul', {
         headers: { 'authorization': `apikey ${apiKey}`,
                     'content-type': 'application/json' },
-        next: { revalidate: 300 }, // Borsa verisini 5 dakikada bir tazele
+        next: { revalidate: 300 },
       })
     ]);
 
@@ -32,13 +30,12 @@ async function getRates() {
     const goldData = await goldRes.json();
     const bistData = await bistRes.json();
 
-    // BIST 100 endeksini buluyoruz
     const bist100 = bistData.result[0]; 
     console.log(bist100);
     return {
       usd: frankfurterDataDolar.rates.TRY,
       eur: frankfurterDataEuro.rates.TRY,
-      gold: goldData.result[0].selling, // Gram Altın (Satış)
+      gold: goldData.result[0].selling,
       bist: bist100?.currentstr || 'N/A',
       bistChange: bist100?.changeratestr || 'N/A',
     };
@@ -47,7 +44,6 @@ async function getRates() {
     return null;
   }
 }
-// Yüzde değişimine göre renk belirleyen yardımcı fonksiyon
 const getChangeColor = (change: string) => {
   if (change.startsWith('-')) return 'text-red-500';
   if (change.startsWith('+') || parseFloat(change) > 0) return 'text-green-500';

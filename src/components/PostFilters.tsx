@@ -1,4 +1,4 @@
-// src/components/PostFilters.tsx
+
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -21,7 +21,7 @@ export const PostFilters = ({ categories }: { categories: Category[] }) => {
     if (selectedCategory) {
       newPath += `category=${selectedCategory}&`;
     }
-    router.push(newPath.slice(0, -1)); // Sondaki '&' veya '?' karakterini kaldır
+    router.push(newPath.slice(0, -1));
   };
 
   return (

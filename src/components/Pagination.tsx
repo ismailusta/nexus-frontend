@@ -1,10 +1,10 @@
-// src/components/Pagination.tsx
+
 'use client'
 
 import Link from 'next/link'
 
 type Props = {
-  basePath: string // Örn: '/posts' veya '/category/teknoloji'
+  basePath: string 
   currentPage: number
   totalPages: number
 }
@@ -13,7 +13,6 @@ export const Pagination = ({ basePath, currentPage, totalPages }: Props) => {
   const hasPrevPage = currentPage > 1;
   const hasNextPage = currentPage < totalPages;
 
-  // Eğer sadece 1 sayfa varsa, hiçbir şey gösterme
   if (totalPages <= 1) {
     return null;
   }

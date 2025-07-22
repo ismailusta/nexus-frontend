@@ -1,4 +1,4 @@
-// src/components/PostCard.tsx
+
 import Link from 'next/link'
 import { PopulatedPost } from '@/interfaces'
 import { FormattedDate } from './FormattedDate'

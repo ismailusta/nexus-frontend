@@ -1,4 +1,4 @@
-// src/app/posts/page.tsx
+
 import { PaginatedDocs, Post, PopulatedPost, Category } from '@/interfaces';
 import { fetchPayload } from '@/services/payload';
 import { PostFilters } from '@/components/PostFilters';
@@ -18,7 +18,6 @@ export default async function PostsPage({ searchParams }: Props) {
   const searchQuery = searchParams.q || '';
   const categoryId = searchParams.category || '';
 
-  // API isteği için bir filtre objesi oluşturuyoruz
   let queryFilter = '';
   if (searchQuery) {
     queryFilter += `&where[title][like]=${searchQuery}`;
