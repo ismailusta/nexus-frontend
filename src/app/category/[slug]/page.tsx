@@ -6,7 +6,7 @@ import { PostCard } from '@/components/PostCard';
 import { notFound } from 'next/navigation';
 import { Pagination } from '@/components/Pagination';
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ slug: string }[]>{
   try {
     const data = await fetchPayload<PaginatedDocs<Category>>('/api/categories?limit=100');
     return data.docs.map(({ slug }) => ({ slug }));
@@ -15,21 +15,13 @@ export async function generateStaticParams() {
   }
 }
 
-type Props = {
-  params: { slug: string };
-  searchParams: {
-    q?: string;
-    page?: string;
-  };
-};
-
 export default async function CategoryPage({ params, searchParams }: {
     params: { slug: string };
     searchParams: { q?: string; page?: string };
     }) {
   const { slug } = params;
   const page = Number(searchParams.page) || 1;
-  const searchQuery = searchParams.q || '';
+  const searchQuery = searchParams.q || ''; 
 
 
   const categoryData = await fetchPayload<PaginatedDocs<Category>>(`/api/categories?where[slug][equals]=${slug}`);
