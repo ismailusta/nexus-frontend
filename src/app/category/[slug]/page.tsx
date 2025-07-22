@@ -23,7 +23,10 @@ type Props = {
   };
 };
 
-export default async function CategoryPage({ params, searchParams }: Props) {
+export default async function CategoryPage({ params, searchParams }: {
+    params: { slug: string };
+    searchParams: { q?: string; page?: string };
+    }) {
   const { slug } = params;
   const page = Number(searchParams.page) || 1;
   const searchQuery = searchParams.q || '';
