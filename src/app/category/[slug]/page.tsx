@@ -1,17 +1,10 @@
+
 import { notFound } from 'next/navigation';
 import { fetchPayload } from '@/services/payload';
 import { PaginatedDocs, Post, PopulatedPost, Category } from '@/interfaces';
 import { PostFilters } from '@/components/PostFilters';
 import { PostCard } from '@/components/PostCard';
 import { Pagination } from '@/components/Pagination';
-
-type CategoryPageProps = {
-  params: { slug: string };
-  searchParams: {
-    q?: string;
-    page?: string;
-  };
-};
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   try {
@@ -22,8 +15,18 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }
 }
 
-export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const { slug } = params;
+
+type PageProps = {
+  params: Promise<{ slug: string }>; 
+  searchParams: Promise<{ q?: string; page?: string }>; 
+};
+
+export default async function CategoryPage(props: PageProps) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+
+  const slug = params.slug;
+  
   const page = Number(searchParams.page) || 1;
   const searchQuery = searchParams.q || '';
 

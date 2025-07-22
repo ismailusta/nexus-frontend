@@ -15,14 +15,12 @@ export async function generateStaticParams() {
   }
 }
 
-type Props = {
-  params: {
-    slug: string;
-  };
+type PageProps = {
+  params: Promise<{ slug: string }>;
 };
 
-export default async function PostPage({ params }: Props) {
-  const { slug } = params;
+export default async function PostPage(props: PageProps) {
+  const slug = await props.params;
 
   const data = await fetchPayload<PaginatedDocs<Post>>(
     `/api/posts?where[slug][equals]=${slug}&depth=2`

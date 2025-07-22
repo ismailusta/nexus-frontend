@@ -6,14 +6,16 @@ import { PostCard } from '@/components/PostCard';
 import { Pagination } from '@/components/Pagination';
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
     category?: string;
     page?: string;
-  };
+  }>;
 };
 
-export default async function PostsPage({ searchParams }: Props) {
+export default async function PostsPage(props: Props) {
+  const searchParams = await props.searchParams;
+  
   const page = Number(searchParams.page) || 1;
   const searchQuery = searchParams.q || '';
   const categoryId = searchParams.category || '';
