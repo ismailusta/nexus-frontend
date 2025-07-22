@@ -20,7 +20,7 @@ type PageProps = {
 };
 
 export default async function PostPage(props: PageProps) {
-  const slug = await props.params;
+  const {slug} = await props.params;
 
   const data = await fetchPayload<PaginatedDocs<Post>>(
     `/api/posts?where[slug][equals]=${slug}&depth=2`
