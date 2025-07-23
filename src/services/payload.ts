@@ -6,7 +6,7 @@ export async function fetchPayload<T>(endpoint: string): Promise<T> {
   }
 
   const res = await fetch(`${serverURL}${endpoint}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 3600 },
   });
 
   if (!res.ok) {
